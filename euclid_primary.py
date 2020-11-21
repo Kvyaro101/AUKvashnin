@@ -2,11 +2,10 @@
 
 from math import sqrt
 import random
-import time
+from timeit import timeit
 
 def find_gcd(first_one, second_one):
     """Функция, считающая gcd и линейное представление его для двух чисел"""
-    begin = time.process_time()
     multiplier = 1
     num_1,num_2 = first_one,second_one
     while num_1 != 0 and num_2 != 0:
@@ -27,28 +26,21 @@ def find_gcd(first_one, second_one):
             multiplier += 1
     coefficient_1, coefficient_2 = multiplier, (multiplier*quotient-1)/min(num_1,num_2)
 
-    print("Линейка:",coefficient_1,"*",max(first_one,second_one),"-",coefficient_2,"*",min(first_one,second_one),"=",coefficient_1*max(first_one,second_one)-coefficient_2*min(first_one,second_one))
-    end = time.process_time()
-    print ('Время исполнения:',end - begin, 'c')
+    print(f"Линейка:{coefficient_1}*{max(first_one,second_one)}+{coefficient_2}*{min(first_one,second_one)}={coefficient_1*max(first_one,second_one)-coefficient_2*min(first_one,second_one)}")
 
 def primity(number):
     """Наивный способ подсчёта простоты"""
-    begin = time.process_time()
     divisor = []
     if number % 2!=0 or number==2:
         limit = int(sqrt(number)/2) - 1
         for i in range (0,limit):
             if divisor == [] and number % (3+2*i) == 0: #Хотя бы исключим чётные
                 divisor.append(i)
-        if divisor == []:
-            print("Great, it's success", number)
+    if divisor == []:
+        return True
     else:
-        print("It's even even!", number)
-    if divisor != []:
-        print ("Например, делитель:",random.choice(divisor)*2+3,number) #Чтоб было конкретное число
-    end = time.process_time()
-    print ('Время исполнения:',end - begin, 'c')
+        False
 
 find_gcd(121,1555)
-primity(5)
-primity(67280421310721)
+print(primity(67280421310721))
+print(f"Время 1 простоты:{timeit(lambda: primity(67280421310721), number=10) / 10}")
