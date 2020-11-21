@@ -1,7 +1,6 @@
 """Все алгоритмы Евклида и простота"""
 
 from math import sqrt
-import random
 from timeit import timeit
 
 def find_gcd(first_one, second_one):
@@ -33,14 +32,17 @@ def primity(number):
     divisor = []
     if number % 2!=0 or number==2:
         limit = int(sqrt(number)/2) - 1
-        for i in range (0,limit):
+        for i in range (limit+1):
             if divisor == [] and number % (3+2*i) == 0: #Хотя бы исключим чётные
                 divisor.append(i)
+        if limit==0 and number % 3 ==0:
+            divisor.append(3)
+    else:
+        divisor.append(2)
     if divisor == []:
         return True
-    else:
-        False
 
 find_gcd(121,1555)
+print(primity(2391))
 print(primity(67280421310721))
 print(f"Время 1 простоты:{timeit(lambda: primity(67280421310721), number=10) / 10}")
