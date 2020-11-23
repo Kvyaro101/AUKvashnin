@@ -7,25 +7,23 @@ def find_gcd(first_one, second_one):
     """Функция, считающая gcd и линейное представление его для двух чисел"""
     multiplier = 1
     num_1,num_2 = first_one,second_one
-    while num_1 != 0 and num_2 != 0:
+    while num_1 != 0 and num_2 != 0: #gcd здесь. 1-ое число в результате
         if num_1>num_2:
             num_1 = num_1 % num_2
         else:
             num_2 = num_2 % num_1
-    print ("gcd чисел",first_one, "и",second_one,":",max(num_1,num_2))
-    num_1,num_2 = first_one/max(num_1,num_2), second_one/max(num_1,num_2) #Переисп. num_1 и num_2
-    quotient = max(num_1,num_2)
-    if num_1>num_2:
-        while (num_1-1)%num_2!=0:
-            num_1 += num_1 + quotient
+    num_3,num_4 = first_one/max(num_1,num_2), second_one/max(num_1,num_2)
+    quotient = max(num_3,num_4)
+    if num_3>num_4:
+        while (num_3-1)%num_4!=0:
+            num_3 += num_3 + quotient
             multiplier += 1
     else:
-        while (num_2-1)%num_1!=0:
-            num_2 += quotient
+        while (num_4-1)%num_3!=0:
+            num_4 += quotient
             multiplier += 1
-    coefficient_1, coefficient_2 = multiplier, (multiplier*quotient-1)/min(num_1,num_2)
-
-    print(f"Линейка:{coefficient_1}*{max(first_one,second_one)}+{coefficient_2}*{min(first_one,second_one)}={coefficient_1*max(first_one,second_one)-coefficient_2*min(first_one,second_one)}")
+    coefficient_1, coefficient_2 = multiplier, -(multiplier*quotient-1)/min(num_3,num_4)
+    return(max(num_1,num_2), [coefficient_1,coefficient_2,max(num_1,num_2)])
 
 def primity(number):
     """Наивный способ подсчёта простоты"""
@@ -39,10 +37,9 @@ def primity(number):
             divisor.append(3)
     else:
         divisor.append(2)
-    if divisor == []:
-        return True
+    return divisor == []
 
-find_gcd(121,1555)
+print(find_gcd(121,1111)) # Расширенный выдаёт 1-ым числом коэф. для max числа, 2-ым для min
 print(primity(2391))
 print(primity(67280421310721))
 print(f"Время 1 простоты:{timeit(lambda: primity(67280421310721), number=10) / 10}")
