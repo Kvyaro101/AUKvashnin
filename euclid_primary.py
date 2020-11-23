@@ -23,7 +23,17 @@ def find_gcd(first_one, second_one):
             num_4 += quotient
             multiplier += 1
     coefficient_1, coefficient_2 = multiplier, -(multiplier*quotient-1)/min(num_3,num_4)
-    return(max(num_1,num_2), [coefficient_1,coefficient_2,max(num_1,num_2)])
+    return [coefficient_1,coefficient_2,max(num_1,num_2)]
+
+def gcd_only (first_one, second_one):
+    """Функция, считающая только gcd"""
+    num_1,num_2 = first_one,second_one
+    while num_1 != 0 and num_2 != 0: #gcd здесь. 1-ое число в результате
+        if num_1>num_2:
+            num_1 = num_1 % num_2
+        else:
+            num_2 = num_2 % num_1
+    return max(num_1,num_2)
 
 def primity(number):
     """Наивный способ подсчёта простоты"""
@@ -39,6 +49,7 @@ def primity(number):
         divisor.append(2)
     return divisor == []
 
+print(gcd_only(121,1111))
 print(find_gcd(121,1111)) # Расширенный выдаёт 1-ым числом коэф. для max числа, 2-ым для min
 print(primity(2391))
 print(primity(67280421310721))
