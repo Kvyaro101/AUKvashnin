@@ -23,7 +23,7 @@ def find_gcd(first_one, second_one):
             num_4 += quotient
             multiplier += 1
     coefficient_1, coefficient_2 = multiplier, -(multiplier*quotient-1)/min(num_3,num_4)
-    return [coefficient_1,coefficient_2,max(num_1,num_2)]
+    return coefficient_1,coefficient_2,max(num_1,num_2)
 
 def gcd_only (first_one, second_one):
     """Функция, считающая только gcd"""
